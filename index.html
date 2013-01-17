@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" >
+  <head>
+		<title>Esempio di intrattenimento testuale</title>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+		<script type="text/javascript" src="utility.js"><!--// ajax utility //--></script>
+
+		<script type="text/javascript"><!--//
+		function mostraAttesa(testo) {
+			var 	puntini = 0,
+				testoIntrattenimento = prendiElementoDaId("testo-temporaneo"),
+				animaTesto = function() {
+					var 	testoAggiunto = "";
+					for(var a = 0; a < puntini; a++) {
+						testoAggiunto += ".";
+					};
+					testoIntrattenimento.nodeValue = testo + testoAggiunto;
+					if(puntini < 4)
+						puntini++;
+					else
+						puntini = 0;
+					setTimeout(animaTesto, 300);
+				};
+			
+			if(testoIntrattenimento.firstChild) {
+				animaTesto = function(){};
+				testoIntrattenimento.removeChild(testoIntrattenimento.firstChild);
+			}
+			else {
+				testoIntrattenimento = document.createTextNode(testo);
+				prendiElementoDaId("testo-temporaneo").appendChild(testoIntrattenimento);
+				animaTesto();
+			};
+		};
+		//--></script>
+		<style type="text/css" media="all">
+			body {
+				font-family: Verdana, Helvetica, sans-serif;
+				font-size: 9pt;
+				background: #FFF;
+				color: #000;
+			}
+			h1 {
+				font-size: 12pt;
+				border-bottom: 1px solid silver;
+				color: #009;
+			}
+			ul li {
+				margin-bottom: 10px;
+			}
+			li span {
+				font-size: 8pt;
+				color: #777;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>Esempio di intrattenimento testuale dinamico</h1>
+			<div>
+
+				<span
+					style="cursor: pointer;"
+					onclick="mostraAttesa('caricamento');"
+				>
+					test di intrattenimento
+				</span>
+				<p id="testo-temporaneo"></p>
+			</div>
+		</div>
+	</body>
+</html>
